@@ -11,10 +11,11 @@ interface WordData {
   term: string
   phonetic?: string | null
   isNSFW: boolean
-  createdAt: string
-  author: { username: string; avatar?: string | null }
-  _count: { definitions: number; reactions: number; comments: number }
-  tags?: { tag: { id: string; name: string; color?: string | null } }[]
+  createdAt: string | Date
+  author: { id: string; username: string; avatar?: string | null }
+  definitionCount: number
+  reactionCount: number
+  tags: { id: string; name: string; color?: string | null }[]
 }
 
 interface Props {
@@ -41,7 +42,7 @@ export function WordListClient({ groupId, initialWords }: Props) {
     setLoading(true)
     const result = await getGroupWords(groupId, { search, sort })
     if (result.success && result.data) {
-      setWords(result.data as unknown as WordData[])
+      setWords(result.data.words as unknown as WordData[])
     }
     setLoading(false)
   }, [groupId, search, sort])
@@ -149,11 +150,11 @@ export function WordListClient({ groupId, initialWords }: Props) {
                       <div className="flex items-center gap-2 mt-1.5 text-xs text-[#888]">
                         <span>par {word.author.username}</span>
                         <span>·</span>
-                        <span>{word._count.definitions} def{word._count.definitions > 1 ? "s" : ""}</span>
-                        {word._count.reactions > 0 && (
+                        <span>{word.definitionCount} def{word.definitionCount > 1 ? "s" : ""}</span>
+                        {word.reactionCount > 0 && (
                           <>
                             <span>·</span>
-                            <span>{word._count.reactions} reactions</span>
+                            <span>{word.reactionCount} reactions</span>
                           </>
                         )}
                       </div>
@@ -161,7 +162,7 @@ export function WordListClient({ groupId, initialWords }: Props) {
                   </div>
                   {word.tags && word.tags.length > 0 && (
                     <div className="flex gap-1 mt-2 flex-wrap">
-                      {word.tags.map(({ tag }) => (
+                      {word.tags.map((tag) => (
                         <Badge key={tag.id} color={tag.color || "#6B7280"}>
                           {tag.name}
                         </Badge>
