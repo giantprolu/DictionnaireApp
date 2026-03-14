@@ -1,0 +1,221 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  username      String    @unique
+  password      String
+  avatar        String?
+  bio           String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  memberships   GroupMember[]
+  words         Word[]
+  definitions   Definition[]
+  reactions     Reaction[]
+  comments      Comment[]
+  invitesSent   Invite[]       @relation("InviteSender")
+  votes         Vote[]
+  achievements  UserAchievement[]
+}
+
+model Group {
+  id            String    @id @default(cuid())
+  name          String
+  description   String?
+  emoji         String?   @default("📖")
+  code          String    @unique
+  isPublic      Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  members       GroupMember[]
+  words         Word[]
+  invites       Invite[]
+  wordOfTheDay  WordOfTheDay[]
+}
+
+model GroupMember {
+  id        String   @id @default(cuid())
+  role      Role     @default(MEMBER)
+  nickname  String?
+  joinedAt  DateTime @default(now())
+
+  userId    String
+  groupId   String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  group     Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, groupId])
+}
+
+enum Role {
+  ADMIN
+  MEMBER
+}
+
+model Word {
+  id          String    @id @default(cuid())
+  term        String
+  phonetic    String?
+  origin      String?
+  isNSFW      Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  authorId    String
+  groupId     String
+  author      User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  group       Group     @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  definitions  Definition[]
+  reactions    Reaction[]
+  comments     Comment[]
+  tags         TagOnWord[]
+  wordOfTheDay WordOfTheDay[]
+
+  @@unique([term, groupId])
+  @@index([groupId, createdAt])
+  @@index([groupId, term])
+}
+
+model Definition {
+  id          String   @id @default(cuid())
+  content     String
+  example     String?
+  isOriginal  Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  authorId    String
+  wordId      String
+  author      User       @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  word        Word       @relation(fields: [wordId], references: [id], onDelete: Cascade)
+
+  reactions   Reaction[]
+  votes       Vote[]
+}
+
+model Vote {
+  id           String   @id @default(cuid())
+  value        Int
+  createdAt    DateTime @default(now())
+
+  userId       String
+  definitionId String
+  user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  definition   Definition @relation(fields: [definitionId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, definitionId])
+}
+
+model Reaction {
+  id        String   @id @default(cuid())
+  emoji     String
+  createdAt DateTime @default(now())
+
+  userId       String
+  wordId       String?
+  definitionId String?
+  user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  word         Word?       @relation(fields: [wordId], references: [id], onDelete: Cascade)
+  definition   Definition? @relation(fields: [definitionId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, wordId, emoji])
+  @@unique([userId, definitionId, emoji])
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  authorId  String
+  wordId    String
+  parentId  String?
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  word      Word     @relation(fields: [wordId], references: [id], onDelete: Cascade)
+  parent    Comment? @relation("CommentThread", fields: [parentId], references: [id])
+  replies   Comment[] @relation("CommentThread")
+}
+
+model Tag {
+  id    String      @id @default(cuid())
+  name  String      @unique
+  color String?
+
+  words TagOnWord[]
+}
+
+model TagOnWord {
+  wordId String
+  tagId  String
+  word   Word @relation(fields: [wordId], references: [id], onDelete: Cascade)
+  tag    Tag  @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([wordId, tagId])
+}
+
+model WordOfTheDay {
+  id        String   @id @default(cuid())
+  date      DateTime @db.Date
+
+  wordId    String
+  groupId   String
+  word      Word     @relation(fields: [wordId], references: [id], onDelete: Cascade)
+  group     Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  @@unique([groupId, date])
+}
+
+model Invite {
+  id        String       @id @default(cuid())
+  status    InviteStatus @default(PENDING)
+  email     String?
+  createdAt DateTime     @default(now())
+  expiresAt DateTime?
+
+  senderId  String
+  groupId   String
+  sender    User         @relation("InviteSender", fields: [senderId], references: [id], onDelete: Cascade)
+  group     Group        @relation(fields: [groupId], references: [id], onDelete: Cascade)
+}
+
+enum InviteStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
+  EXPIRED
+}
+
+model Achievement {
+  id          String   @id @default(cuid())
+  code        String   @unique
+  name        String
+  description String
+  emoji       String
+  threshold   Int
+
+  users       UserAchievement[]
+}
+
+model UserAchievement {
+  id           String   @id @default(cuid())
+  unlockedAt   DateTime @default(now())
+
+  userId       String
+  achievementId String
+  user         User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  achievement  Achievement @relation(fields: [achievementId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, achievementId])
+}
