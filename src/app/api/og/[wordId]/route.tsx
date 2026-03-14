@@ -1,8 +1,6 @@
 import { ImageResponse } from "next/og"
 import { prisma } from "@/lib/prisma"
 
-export const runtime = "edge"
-
 export async function GET(
   _request: Request,
   { params }: { params: Promise<{ wordId: string }> }
@@ -85,7 +83,7 @@ export async function GET(
             {definition.length > 150 ? definition.slice(0, 147) + "..." : definition}
           </div>
           <div style={{ fontSize: "18px", color: "#888", marginTop: "30px", display: "flex" }}>
-            DicoCrew — par {word.author.username}
+            Val&apos;tionnaire — par {word.author.username}
           </div>
         </div>
       </div>

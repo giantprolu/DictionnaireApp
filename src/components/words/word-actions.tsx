@@ -27,7 +27,7 @@ export function WordActions({ wordId, groupId }: Props) {
   async function handleShare() {
     const url = `${window.location.origin}/groups/${groupId}/words/${wordId}`
     if (navigator.share) {
-      await navigator.share({ title: "DicoCrew", url })
+      await navigator.share({ title: "Val'tionnaire", url })
     } else {
       await navigator.clipboard.writeText(url)
       alert("Lien copie !")

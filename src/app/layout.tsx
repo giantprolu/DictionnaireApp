@@ -17,13 +17,13 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "DicoCrew",
-    template: "%s | DicoCrew",
+    default: "Val'tionnaire",
+    template: "%s | Val'tionnaire",
   },
   description:
-    "Le dictionnaire collaboratif de ta bande de potes. Creez, partagez et votez pour les definitions les plus droles.",
-  applicationName: "DicoCrew",
-  authors: [{ name: "DicoCrew" }],
+    "Le dictionnaire collaboratif. Creez, partagez et votez pour les definitions les plus droles.",
+  applicationName: "Val'tionnaire",
+  authors: [{ name: "Val'tionnaire" }],
   keywords: [
     "dictionnaire",
     "collaboratif",
@@ -35,21 +35,21 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "fr_FR",
-    siteName: "DicoCrew",
-    title: "DicoCrew - Le dico de ta bande",
+    siteName: "Val'tionnaire",
+    title: "Val'tionnaire - Le dico de jeune",
     description:
-      "Le dictionnaire collaboratif de ta bande de potes. Creez, partagez et votez pour les definitions les plus droles.",
+      "Le dictionnaire collaboratif. Creez, partagez et votez pour les definitions les plus droles.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "DicoCrew - Le dico de ta bande",
+    title: "Val'tionnaire - Le dico de jeune",
     description:
-      "Le dictionnaire collaboratif de ta bande de potes.",
+      "Le dictionnaire collaboratif.",
   },
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "DicoCrew",
+    title: "Val'tionnaire",
   },
   formatDetection: {
     telephone: false,

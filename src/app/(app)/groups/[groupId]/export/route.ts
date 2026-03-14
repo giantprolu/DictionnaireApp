@@ -44,7 +44,7 @@ export async function GET(
     },
   })
 
-  let text = `${group?.emoji || "📖"} ${group?.name || "DicoCrew"}\n`
+  let text = `${group?.emoji || "📖"} ${group?.name || "Val'tionnaire"}\n`
   text += `${"=".repeat(40)}\n`
   text += `Exporte le ${new Date().toLocaleDateString("fr-FR")}\n`
   text += `${words.length} mots\n\n`
@@ -65,12 +65,12 @@ export async function GET(
   }
 
   text += `\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`
-  text += `Genere par DicoCrew\n`
+  text += `Genere par Val'tionnaire\n`
 
   return new NextResponse(text, {
     headers: {
       "Content-Type": "text/plain; charset=utf-8",
-      "Content-Disposition": `attachment; filename="dicocrew-${group?.name?.replace(/\s+/g, "-").toLowerCase() || "export"}.txt"`,
+      "Content-Disposition": `attachment; filename="valtionnaire-${group?.name?.replace(/\s+/g, "-").toLowerCase() || "export"}.txt"`,
     },
   })
 }

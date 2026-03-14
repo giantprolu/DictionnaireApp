@@ -33,10 +33,10 @@ export default function RegisterPage() {
     const validation = registerSchema.safeParse({ email, username, password });
     if (!validation.success) {
       const fieldErrors: Record<string, string> = {};
-      const flat = validation.error.flatten().fieldErrors;
-      for (const [key, messages] of Object.entries(flat)) {
-        if (messages && messages.length > 0) {
-          fieldErrors[key] = messages[0];
+      for (const issue of validation.error.issues) {
+        const key = issue.path[0];
+        if (typeof key === "string" && !fieldErrors[key]) {
+          fieldErrors[key] = issue.message;
         }
       }
       setErrors(fieldErrors);

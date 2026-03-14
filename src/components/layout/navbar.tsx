@@ -15,7 +15,7 @@ export function Navbar({
     <nav className="sticky top-0 z-40 flex h-14 items-center justify-between border-b border-[#2A2A2E] bg-[#0A0A0B]/80 px-4 backdrop-blur-xl">
       {/* Logo / title */}
       <span className="text-lg font-bold tracking-tight text-[#F5F5F5]">
-        Dico<span className="text-[#34D399]">Crew</span>
+        Val&apos;<span className="text-[#34D399]">tionnaire</span>
       </span>
 
       {/* Notification bell */}

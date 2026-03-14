@@ -2,10 +2,10 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "DicoCrew - Le dico de ta bande",
-    short_name: "DicoCrew",
+    name: "Val'tionnaire - Le dico de jeune",
+    short_name: "Val'tionnaire",
     description:
-      "Le dictionnaire collaboratif de ta bande de potes. Creez, partagez et votez pour les definitions les plus droles.",
+      "Le dictionnaire collaboratif. Creez, partagez et votez pour les definitions les plus droles.",
     start_url: "/dashboard",
     display: "standalone",
     background_color: "#0A0A0B",

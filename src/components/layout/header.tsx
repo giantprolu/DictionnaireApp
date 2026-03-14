@@ -19,7 +19,7 @@ export function Header({
   const pathname = usePathname();
   const router = useRouter();
   const isDashboard = pathname === "/dashboard";
-  const displayTitle = title ?? "DicoCrew";
+  const displayTitle = title ?? "Val'tionnaire";
 
   return (
     <header className="sticky top-0 z-40 flex h-14 items-center justify-between border-b border-[#2A2A2E] bg-[#0A0A0B]/80 px-4 backdrop-blur-xl">

@@ -81,7 +81,7 @@ export default function GroupSettingsPage() {
   async function handleShare() {
     if (navigator.share) {
       await navigator.share({
-        title: `Rejoins ${group!.name} sur DicoCrew !`,
+        title: `Rejoins ${group!.name} sur Val'tionnaire !`,
         text: `Viens ajouter des mots dans notre dico !`,
         url: inviteLink,
       })

@@ -125,7 +125,7 @@ export default function LandingPage() {
       <section className="flex flex-1 flex-col items-center justify-center px-6 pb-12 pt-24 text-center">
         {/* Logo */}
         <h1 className="text-5xl font-extrabold tracking-tight text-text sm:text-6xl">
-          Dico<span className="text-accent">Crew</span>
+          Val&apos;<span className="text-accent">tionnaire</span>
         </h1>
 
         {/* Tagline */}
@@ -172,7 +172,7 @@ export default function LandingPage() {
 
       {/* ---- Footer ---- */}
       <footer className="border-t border-border py-6 text-center text-xs text-text-secondary">
-        DicoCrew &mdash; Fait avec passion entre potes
+        Val&apos;tionnaire &mdash; Fait avec passion entre potes
       </footer>
     </div>
   );

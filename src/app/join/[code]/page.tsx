@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: { params: Promise<{ code: str
   })
   return {
     title: group ? `Rejoindre ${group.name}` : "Invitation",
-    description: group ? `Rejoins le groupe ${group.emoji} ${group.name} sur DicoCrew` : undefined,
+    description: group ? `Rejoins le groupe ${group.emoji} ${group.name} sur Val'tionnaire` : undefined,
   }
 }
 
@@ -78,7 +78,7 @@ export default async function JoinPage({ params }: { params: Promise<{ code: str
           )}
 
           <p className="text-xs text-[#888] mt-4">
-            <Link href="/" className="hover:text-[#34D399]">DicoCrew</Link> — Le dico de ta bande de potes
+            <Link href="/" className="hover:text-[#34D399]">Val&apos;tionnaire</Link> — Le dico de ta bande de potes
           </p>
         </CardContent>
       </Card>
