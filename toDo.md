@@ -1,0 +1,8 @@
+- [ ] la page de recherche dans la navbar ne fonctionne pas 
+- [ ] la page d'ajout dans la navbar ne fonctionne pas
+- [ ] vérifie chaque div et card pour que lespacement soit correct parce qu'il y'a beaucoup de card collé et ce n'est pas beau
+- [ ] rend l'app facile d'utilisation et de compréhension
+- [ ] revoi l'ux/ui de l'app pour que ce soit plus simple et plus jolie
+- [ ] ajoute une page de profil pour que les gens puissent voir leur stats et leurs contributions
+- [ ] a quoi sert le count 1, 0 ou -1 ?
+- [ ] ajoute une page de classement pour que les gens puissent voir les meilleurs contributeurs et les meilleures definitions
